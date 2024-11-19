@@ -1,7 +1,7 @@
 import { WelcomeStep } from "../../components/steps/WelcomeSteps";
 import { EnterNameStep } from "../../components/steps/EnterNameStep";
 import { GitHubStep } from "../../components/steps/GithubStep";
-import { ChooseAvatarStep } from "../../components/steps/ChooseAvatarStep/index";
+import { ChooseAvatarStep } from "../../components/steps/ChooseAvatarStep";
 import React from "react";
 
 type StepComponent = React.FC<{}>;
@@ -14,7 +14,7 @@ const stepsComponent: { [key: number]: StepComponent } = {
 };
 
 export default function Home() {
-  const [step, setStep] = React.useState<number>(2);
+  const [step, setStep] = React.useState<number>(3);
   const Step = stepsComponent[step];
 
   return <>{Step ? <Step /> : null}</>;

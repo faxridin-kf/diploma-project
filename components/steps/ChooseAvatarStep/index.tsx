@@ -102,7 +102,7 @@
 //   );
 // };
 
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import clsx from "clsx";
 import { WhiteBlock } from "../../WhiteBlock";
 import { Button } from "../../Button";
@@ -111,16 +111,27 @@ import { Avatar } from "../../Avatar";
 
 import styles from "./ChooseAvatarStep.module.scss";
 
-export const ChooseAvatarStep = () => {
-  const imputFileRef = React.useRef();
-  const handleChangeImage = (e) => {
-    console.log(e.target.files);
+export const ChooseAvatarStep: React.FC = () => {
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
+
+  const handleChangeImage = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    console.log(target.files);
   };
-  React.useEffect(() => {
-    if (imputFileRef.current) {
-      imputFileRef.current.addEventListener("change", handleChangeImage);
+
+  useEffect(() => {
+    const currentInput = inputFileRef.current;
+    if (currentInput) {
+      currentInput.addEventListener("change", handleChangeImage);
     }
+
+    return () => {
+      if (currentInput) {
+        currentInput.removeEventListener("change", handleChangeImage);
+      }
+    };
   }, []);
+
   return (
     <div className={styles.block}>
       <StepInfo
@@ -134,7 +145,7 @@ export const ChooseAvatarStep = () => {
             width="120px"
             height="120px"
             src="https://avatars.githubusercontent.com/u/66880870?v=4"
-            letters="this is"
+            letters="this is hot"
           />
         </div>
         <div className="mb-30">
@@ -142,7 +153,7 @@ export const ChooseAvatarStep = () => {
             Choose a different photo
           </label>
         </div>
-        <input id="image" ref={imputFileRef} type="file" hidden />
+        <input id="image" ref={inputFileRef} type="file" hidden />
         <Button>
           Next
           <img className="d-ib ml-10" src="/static/arrow.svg" alt="Arrow" />
