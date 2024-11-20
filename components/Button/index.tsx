@@ -11,7 +11,7 @@ interface ButtonProps {
   children: ReactNode; // Allows any valid React node as children
   disabled?: boolean; // Optional disabled prop
   color?: ButtonColor; // Optional color prop, constrained to defined colors
-  onClick?: () => void; // Optional onClick handler
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string; // Optional className prop
 }
 

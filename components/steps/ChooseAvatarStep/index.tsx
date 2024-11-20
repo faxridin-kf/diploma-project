@@ -112,24 +112,29 @@ import { Avatar } from "../../Avatar";
 import styles from "./ChooseAvatarStep.module.scss";
 
 export const ChooseAvatarStep: React.FC = () => {
+  const [avatarUrl, setAvatarUrl] = React.useState<string>(
+    "https://avatars.githubusercontent.com/u/66880870?v=4",
+  );
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
-  const handleChangeImage = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    console.log(target.files);
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    console.log(imageUrl);
+    setAvatarUrl(imageUrl);
   };
 
   useEffect(() => {
-    const currentInput = inputFileRef.current;
-    if (currentInput) {
-      currentInput.addEventListener("change", handleChangeImage);
+    // const currentInput = inputFileRef.current;
+    if (inputFileRef.current) {
+      inputFileRef.current.addEventListener("change", handleChangeImage);
     }
 
-    return () => {
-      if (currentInput) {
-        currentInput.removeEventListener("change", handleChangeImage);
-      }
-    };
+    // return () => {
+    //   if (currentInput) {
+    //     currentInput.removeEventListener("change", handleChangeImage);
+    //   }
+    // };
   }, []);
 
   return (
@@ -144,7 +149,7 @@ export const ChooseAvatarStep: React.FC = () => {
           <Avatar
             width="120px"
             height="120px"
-            src="https://avatars.githubusercontent.com/u/66880870?v=4"
+            src={avatarUrl}
             letters="this is hot"
           />
         </div>
