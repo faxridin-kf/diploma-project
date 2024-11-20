@@ -117,8 +117,9 @@ export const ChooseAvatarStep: React.FC = () => {
   );
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
-  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files[0];
+  const handleChangeImage = (e: Event): void => {
+    const target = e.target as HTMLInputElement;
+    const file = target.files[0];
     const imageUrl = URL.createObjectURL(file);
     console.log(imageUrl);
     setAvatarUrl(imageUrl);
