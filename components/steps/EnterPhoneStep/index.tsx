@@ -55,7 +55,8 @@
 // };
 import React from "react";
 import clsx from "clsx";
-import NumberFormat from "react-number-format";
+// @ts-ignore
+import { PatternFormat } from "react-number-format";
 import { WhiteBlock } from "../../WhiteBlock";
 import { Button } from "../../Button";
 import StepInfo from "../../StepInfo";
@@ -86,9 +87,9 @@ export const EnterPhoneStep: React.FC = () => {
       <WhiteBlock className={clsx("m-auto mt-30", styles.whiteBlock)}>
         <div className={clsx("mb-30", styles.input)}>
           <img src="/static/russian-flag.png" alt="flag" width={24} />
-          <NumberFormat
+          <PatternFormat
             className="field"
-            format="+### (91) ###-##-##"
+            format="+### (##) ###-##-##"
             mask="_"
             placeholder="+998 (91) 333-22-11"
             value={values.value}
