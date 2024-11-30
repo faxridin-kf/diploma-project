@@ -5,8 +5,11 @@ import { WhiteBlock } from "../../WhiteBlock";
 import StepInfo from "../../StepInfo";
 import styles from "./EnterCodeStep.module.scss";
 import { Button } from "../../Button";
+import Axios from "../../../core/axios";
 
 export const EnterCodeStep = () => {
+  const router = useRouter();
+  const [isLoading, SetIsloading] = React.useState<boolean>(false);
   const [codes, setCodes] = React.useState(["", "", "", ""]);
   const nextDisabled = codes.some((v) => !v) || codes.length < 4;
 
@@ -49,35 +52,60 @@ export const EnterCodeStep = () => {
       (target.previousElementSibling as HTMLInputElement).focus();
     }
   };
+  const onSubmitButton = async () => {
+    try {
+      SetIsloading(true);
+      await Axios.get("/todos");
+      router.push("/rooms");
+    } catch (error) {
+      alert(error);
+    }
+    SetIsloading(false);
+  };
 
   return (
     <div className={styles.block}>
-      <StepInfo icon="/static/numbers.png" title="Enter your activate code" />
-      <WhiteBlock className={clsx("m-auto mt-30", styles.whiteBlock)}>
-        <div className={styles.codeInput}>
-          {codes.map((code, index) => (
-            <input
-              key={index}
-              type="tel"
-              placeholder="X"
-              maxLength={1}
-              id={String(index)}
-              onChange={handleChangeInput}
-              onKeyDown={handleKeyDown}
-              value={code}
-            />
-          ))}
-          <Button disabled={nextDisabled} aria-disabled={nextDisabled}>
-            Next
-            <img className="d-ib ml-10" src="/static/arrow.svg" alt="Next" />
-          </Button>
+      {!isLoading ? (
+        <>
+          <StepInfo
+            icon="/static/numbers.png"
+            title="Enter your activate code"
+          />
+          <WhiteBlock className={clsx("m-auto mt-30", styles.whiteBlock)}>
+            <div className={styles.codeInput}>
+              {codes.map((code, index) => (
+                <input
+                  key={index}
+                  type="tel"
+                  placeholder="X"
+                  maxLength={1}
+                  id={String(index)}
+                  onChange={handleChangeInput}
+                  onKeyDown={handleKeyDown}
+                  value={code}
+                />
+              ))}
+              <Button
+                disabled={nextDisabled}
+                aria-disabled={nextDisabled}
+                onClick={onSubmitButton}
+              >
+                Next
+                <img
+                  className="d-ib ml-10"
+                  src="/static/arrow.svg"
+                  alt="Next"
+                />
+              </Button>
+            </div>
+          </WhiteBlock>
+        </>
+      ) : (
+        <div className="text-center">
+          <div className="loader"></div>
+          <h3 className="mt-5">Activation in progress ...</h3>
         </div>
-      </WhiteBlock>
-
-      <div className="text-center">
-        <div className="loader"></div>
-        <h3 className="mt-5">Activation in progress ...</h3>
-      </div>
+      )}
     </div>
   );
 };

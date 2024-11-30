@@ -3,8 +3,10 @@ import { Button } from "../../Button";
 
 import styles from "./WelcomeStep.module.scss";
 import React from "react";
+import { MainContext } from "@/pages";
 
 export const WelcomeStep: React.FC = () => {
+  const { onNextStep } = React.useContext(MainContext);
   return (
     <WhiteBlock className={styles.block}>
       <h3 className={styles.title}>
@@ -21,7 +23,7 @@ export const WelcomeStep: React.FC = () => {
         nothing breaks :)
       </p>
       <div>
-        <Button>
+        <Button onClick={onNextStep}>
           Get your username
           <img className="d-ib ml-10" src="/static/arrow.svg" alt="Arrow" />
         </Button>
