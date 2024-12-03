@@ -6,10 +6,12 @@ import StepInfo from "../../StepInfo";
 
 import styles from "./GitHubStep.module.scss";
 import React from "react";
+import { MainContext } from "@/pages";
 // import { MainContext, UserData } from "../../../pages";
 
 export const GitHubStep: React.FC = () => {
   // const { onNextStep, setUserData } = React.useContext(MainContext);
+  const { onNextStep } = React.useContext(MainContext);
 
   // const onClickAuth = () => {
   //   window.open(
@@ -40,6 +42,7 @@ export const GitHubStep: React.FC = () => {
       />
       <WhiteBlock className={clsx("m-auto mt-40", styles.whiteBlock)}>
         <Button
+          onClick={onNextStep}
           // onClick={onClickAuth}
           className={clsx(styles.button, "d-i-flex align-items-center")}
         >

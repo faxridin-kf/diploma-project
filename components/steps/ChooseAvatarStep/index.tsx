@@ -111,7 +111,10 @@ import { Avatar } from "../../Avatar";
 
 import styles from "./ChooseAvatarStep.module.scss";
 
+import { MainContext } from "@/pages";
+
 export const ChooseAvatarStep: React.FC = () => {
+  const { onNextStep } = React.useContext(MainContext);
   const [avatarUrl, setAvatarUrl] = React.useState<string>(
     "https://avatars.githubusercontent.com/u/66880870?v=4",
   );
@@ -162,7 +165,7 @@ export const ChooseAvatarStep: React.FC = () => {
           </label>
         </div>
         <input id="image" ref={inputFileRef} type="file" hidden />
-        <Button>
+        <Button onClick={onNextStep}>
           Next
           <img className="d-ib ml-10" src="/static/arrow.svg" alt="Arrow" />
         </Button>
