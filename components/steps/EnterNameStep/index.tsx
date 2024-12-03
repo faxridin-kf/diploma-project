@@ -10,7 +10,17 @@ import { MainContext } from "@/pages";
 // import { Avatar } from "../../Avatar";
 
 export const EnterNameStep = () => {
+  const [nameInput, setNameInput] = React.useState<string>("");
   const { onNextStep } = React.useContext(MainContext);
+  const nextDisabled = !nameInput;
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target) {
+      setNameInput(event.target.value);
+    }
+  };
+  const onClickNextStep = () => {
+    onNextStep();
+  };
   // const { onNextStep, userData, setFieldValue } = React.useContext(MainContext);
   // const [inputValue, setInputValue] = React.useState<string>(userData.fullname);
   // const nextDisabled = !inputValue;
@@ -35,13 +45,14 @@ export const EnterNameStep = () => {
         {/* <Avatar src={userData.avatarUrl} width="120px" height="120px" /> */}
         <div className="mt-30 mb-30">
           <input
+            onChange={handleChangeInput}
             // onChange={handleChangeInput}
             // value={inputValue}
             className="field"
             placeholder="Enter fullname"
           />
         </div>
-        <Button onClick={onNextStep}>
+        <Button disabled={nextDisabled} onClick={onClickNextStep}>
           Next
           <img className="d-ib ml-10" src="/static/arrow.svg" />
         </Button>
