@@ -3,6 +3,7 @@ import styles from "./Profile.module.scss";
 import { Avatar } from "../Avatar";
 import { Button } from "../Button";
 import clsx from "clsx";
+import BackButton from "../BackButton";
 
 interface ProfileProps {
   fullname: string;
@@ -19,10 +20,7 @@ const ProfileComponent: React.FC<ProfileProps> = ({
 }) => {
   return (
     <>
-      <div className="d-flex mb-30">
-        <img src="/static/back-arrow.svg" alt="back" className="mr-30" />
-        <h3>Back</h3>
-      </div>
+      <BackButton title="Back" href="/rooms" />
       <div className="d-flex align-items-center">
         <div className="d-flex align-items-center">
           <Avatar src={avatarUrl} width="100px" height="100px" />
