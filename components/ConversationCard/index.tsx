@@ -28,7 +28,7 @@ export const ConversationCard: React.FC<ConversationCard> = ({
         <div className={styles.avatars}>
           {avatars.map((user, i) => (
             <Avatar
-              key={user}
+              key={user + i}
               width="45px"
               height="45px"
               src={user}
@@ -43,7 +43,7 @@ export const ConversationCard: React.FC<ConversationCard> = ({
         <div className={clsx(styles.info, "ml-10")}>
           <ul className={styles.users}>
             {guests.map((user, i) => (
-              <li key={user}>
+              <li key={user + i}>
                 {user}{" "}
                 <img
                   src="/static/cloud.png"

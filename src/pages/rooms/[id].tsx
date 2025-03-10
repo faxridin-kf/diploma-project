@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { Header } from "../../../components/Header";
 import BackButton from "../../../components/BackButton";
+import Room from "../../../components/Room";
 
 const RoomPage: React.FC = () => {
   const router = useRouter();
@@ -12,8 +13,9 @@ const RoomPage: React.FC = () => {
       <Header />
       <div className="container">
         <BackButton title="All rooms" href="/rooms" />
-        <h2>Room</h2>
+        {/* <h2>Room</h2> */}
       </div>
+      <Room title="hello" />
     </>
   );
 };
