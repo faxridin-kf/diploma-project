@@ -13,8 +13,11 @@ interface Room {
   guestsCount: number;
   speakersCount: number;
 }
+interface Props {
+  rooms: Room[];
+}
 
-const Rooms: React.FC<{ rooms: Room[] }> = ({ rooms = [] }) => {
+const Rooms: React.FC<Props> = ({ rooms = [] }) => {
   return (
     <>
       <Header />
@@ -24,7 +27,7 @@ const Rooms: React.FC<{ rooms: Room[] }> = ({ rooms = [] }) => {
       </div>
       <div className=" grid mt-30 container mt-20">
         {rooms.map((obj: Room) => (
-          <Link key={obj.id} href={"/rooms/test-room"}>
+          <Link key={obj.id} href={`/rooms/${obj.id}`}>
             <ConversationCard
               title={obj.title}
               avatars={obj.avatars}
