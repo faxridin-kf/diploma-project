@@ -1,13 +1,22 @@
-import express, { Request, Response } from "express";
+import express from "express";
+
+import dotenv from "dotenv";
+dotenv.config();
+import { passport } from "./core/passport";
+
 const app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/auth/twitter", (req: Request, res: Response) => {
-  res.send("hello");
-});
+app.get("/auth/github", passport.authenticate("github"));
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", {
+    failureRedirect: "/login",
+  }),
+  (req, res) => res.redirect("/"),
+);
 
-app.listen(3001, (err?: Error) => {
-  if (err) {
-    throw new Error("Server startup error: " + err.message);
-  }
-  console.log("Server running on port 3001");
+app.listen(3001, () => {
+  console.log("SERVER RUNNED!");
 });

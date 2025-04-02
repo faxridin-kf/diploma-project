@@ -122,7 +122,7 @@ export const ChooseAvatarStep: React.FC = () => {
 
   const handleChangeImage = (e: Event): void => {
     const target = e.target as HTMLInputElement;
-    const file = target.files[0];
+    const file = target.files && target.files.length > 0 ? target.files[0] : null;
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       console.log(imageUrl);

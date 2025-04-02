@@ -1,4 +1,4 @@
-import { ACTION_HMR_REFRESH } from "next/dist/client/components/router-reducer/router-reducer-types";
+import { ACTION_REFRESH } from "next/dist/client/components/router-reducer/router-reducer-types";
 import Link from "next/link";
 import React from "react";
 type BackButtonProps = {
